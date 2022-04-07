@@ -41,7 +41,18 @@
   "author": "Google LLC",
   "license": "BSD-3-Clause",
   "dependencies": {
-    "lit": "^2.1.0"
+    "@material/mwc-button": "^0.25.3",
+    "@material/mwc-formfield": "^0.25.3",
+    "@material/mwc-icon": "^0.25.3",
+    "@material/mwc-icon-button": "^0.25.3",
+    "@material/mwc-list": "^0.25.3",
+    "@material/mwc-menu": "^0.25.3",
+    "@material/mwc-select": "^0.25.3",
+    "@material/mwc-tab": "^0.25.3",
+    "@material/mwc-textfield": "^0.25.3",
+    "install": "^0.13.0",
+    "lit": "^2.1.0",
+    "npm": "^8.5.5"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",
