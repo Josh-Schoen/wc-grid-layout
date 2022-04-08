@@ -99,13 +99,12 @@ export class GridLayoutAdvanced extends GridLayoutFoundation {
     try {
       this.points = JSON.parse(this.columnBreakpoints);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
     this.mediaMatch.subscribe(this.fnc);
   }
 
   fnc = async (e: CustomEvent<BreakPointMediaMatch>) => {
-    console.log(this.mediaMatch.breakpointMediaMatch, e.detail)
     this.breakPointMediaMatch = await e.detail;
     this.requestUpdate();
   };
@@ -115,7 +114,6 @@ export class GridLayoutAdvanced extends GridLayoutFoundation {
     const gridTemplateColumns = this.breakPointMediaMatch?.breakpoint
       ? this.breakPointMediaMatch?.value
       : this.columns;
-    console.log(gridTemplateColumns, this.breakPointMediaMatch?.value)
     return {
       display: 'grid',
       // overrides CSS media queries

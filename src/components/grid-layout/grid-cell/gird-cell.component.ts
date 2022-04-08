@@ -4,7 +4,6 @@ import {BreakPointMediaMatch} from '../foundation';
 import {GridLayoutAdvanced} from '../grid-layout-advanced.component';
 import {MediaMatch} from '../media-match';
 import {Placement, getCellPositionString} from './foundation';
-import {styleMap} from 'lit/directives/style-map.js';
 
 @customElement('cwc-grid-cell')
 export class GridCell extends LitElement {
@@ -57,7 +56,7 @@ export class GridCell extends LitElement {
   alignItems: Placement = 'center';
 
   @property()
-  backgroundColor = '#ffc0cb';
+  backgroundColor = '';
 
   mediaMatch = new MediaMatch();
 
@@ -115,12 +114,11 @@ export class GridCell extends LitElement {
 
     this.style.justifyContent = `${this.justifyContent}`;
     this.style.alignItems = `${this.alignItems}`;
-    this.style.backgroundColor = this.backgroundColor;
+    // this.style.backgroundColor = this.backgroundColor;
   };
 
   fnc = (e: CustomEvent<BreakPointMediaMatch>) => {
     this.breakPointEvent = e.detail;
-    // this.updateStyles();
     this.requestUpdate();
   };
 
@@ -139,7 +137,6 @@ export class GridCell extends LitElement {
   }
 
   override render() {
-
     this.updateStyles();
     return html` <div class="cwc-grid-cell"><slot></slot></div> `;
   }

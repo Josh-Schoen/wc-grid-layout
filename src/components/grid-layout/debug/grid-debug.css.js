@@ -7,7 +7,7 @@ export const styles = css`
     cwc-grid-cell {
       background-color: pink;
       /* border: 1px dashed red; */
-      opacity: 0.6;
+      opacity: 0.4;
       color: red;
       font-family: sans-serif;
     }

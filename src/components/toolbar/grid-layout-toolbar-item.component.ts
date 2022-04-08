@@ -77,7 +77,6 @@ export class GridLayoutToolbar extends LitElement {
     return html`
       <div class="inline-item">
         ${this.icon && html` <mwc-icon> ${this.icon} </mwc-icon>`}
-
         <slot name=${this.itemId}></slot>
       </div>
     `;
