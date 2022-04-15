@@ -62,6 +62,7 @@ export const gap = 20;
 
 export class GridLayoutFoundation extends LitElement {
   breakPoints: BreakPointValues;
+  _breakPointMediaMatch: BreakPointMediaMatch[] = [];
 
   constructor(breakPoints: BreakPointValues) {
     super();
@@ -76,40 +77,16 @@ export class GridLayoutFoundation extends LitElement {
     return `@media (max-width: ${this.breakPoints[BreakPointKey]}px)`;
   };
 
-  frGetter = (value: number | CSSResultGroup) : string =>
-    typeof value === "number" ? `repeat(${value}, 1fr)` : `${value}`;
+frGetter = (value: number | CSSResultGroup) =>
+  typeof value === "number" ? `repeat(${value}, 1fr)` : value;
 
-  getBreakPoints = (
-    columnsBreakpoints: BreakPointValues,
-    columnGap: BreakPointValues,
-    rowGap: BreakPointValues
-  ) => {
-    return `${this.up("xs")} {
-              column-gap: ${`${columnGap.xs}px`};
-              grid-template-columns: ${frGetter(columnsBreakpoints.xs)};
-              row-gap: ${`${rowGap.xs}px`};
-            }
-            ${this.up("sm")} {
-              column-gap: ${`${columnGap.sm}px`};
-              grid-template-columns: ${frGetter(columnsBreakpoints.sm)};
-              row-gap: ${`${rowGap.sm}px`};
-            }
-            ${this.up("md")} {
-              column-gap: ${`${columnGap.md}px`};
-              grid-template-columns: ${frGetter(columnsBreakpoints.md)};
-              row-gap: ${`${rowGap.md}px`};
-            }
-            ${this.up("lg")} {
-              column-gap: ${`${columnGap.lg}px`};
-              grid-template-columns: ${frGetter(columnsBreakpoints.lg)};
-              row-gap: ${`${rowGap.lg}px`};
-            }
-            ${this.up("xl")} {
-              column-gap: ${`${columnGap.xl}px`};
-              grid-template-columns: ${frGetter(columnsBreakpoints.lg)};
-              row-gap: ${`${rowGap.xl}px`};
-            }`;
-  };
+  get breakPointsValues(): BreakPointMediaMatch[]  {
+    return this._breakPointMediaMatch
+  }
+
+  set breakPointsValues(breakPoints: BreakPointMediaMatch[]) {
+    this._breakPointMediaMatch = breakPoints;
+  }
 }
 
 export const frGetter = (value: number | CSSResultGroup) =>

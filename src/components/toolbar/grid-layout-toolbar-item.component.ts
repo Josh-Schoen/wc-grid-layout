@@ -21,14 +21,18 @@ export class GridLayoutToolbar extends LitElement {
   @property({type: String})
   icon?: string;
 
+  @property({type: String})
+  color?: string;
+
   @property({type: Boolean})
   useMenu = true;
 
   @property({type: Number})
   onItemSelect?: (type: string, event: Event) => void;
 
-  // @query(`#settingsMenu`)
   menu?: Menu;
+
+  onMenuOpen?: (event: Event, menu: Menu) => void;
 
   static override styles = [gridLayoutToolbarItem];
 
@@ -38,13 +42,16 @@ export class GridLayoutToolbar extends LitElement {
     // this.menu = this.shadowRoot?.getElementById(`menu${this.itemId}`) as Menu;
   }
 
-  handleSelect() {
-    console.log(this.menu);
+  handleSelect(event: Event) {
     this.menu = this.shadowRoot?.getElementById(`menu${this.itemId}`) as Menu;
     if (this.menu) {
       this.menu.open = !this.menu.open;
+      if (this.onMenuOpen) {
+        this.onMenuOpen(event, this.menu);
+      }
       this.requestUpdate();
     }
+
   }
 
   handleItemSelect(event: Event) {
@@ -62,10 +69,11 @@ export class GridLayoutToolbar extends LitElement {
           icon=${this.icon ? this.icon : 'settings'}
           aria-expanded=${this.menu && this.menu.open ? true : false}
           aria-controls="menu${this.itemId}"
+          style="color: ${this.color};"
         >
         </mwc-icon-button>
       </div>
-      <mwc-menu fullWidth absolute x="36" y="0" id="menu${this.itemId}">
+      <mwc-menu absolute x="0" y="-150" id="menu${this.itemId}">
         <div class="settings-container">
           <slot name=${this.itemId}></slot>
         </div>
@@ -76,7 +84,7 @@ export class GridLayoutToolbar extends LitElement {
   renderInlineSlot() {
     return html`
       <div class="inline-item">
-        ${this.icon && html` <mwc-icon> ${this.icon} </mwc-icon>`}
+        ${this.icon && html` <mwc-icon title="${this.icon}"> ${this.icon} </mwc-icon>`}
         <slot name=${this.itemId}></slot>
       </div>
     `;
