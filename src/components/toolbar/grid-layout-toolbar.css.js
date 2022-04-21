@@ -146,11 +146,18 @@ export const gridLayoutToolbar = css`
 
   .header-container {
       display: flex;
-      justify-content: space-between;
   }
 
-  .header-container.success {
+  .grid-container {
+      display: grid;
+  }
+
+  .current .header-container {
     color: var(--glo-success);
+  }
+
+  .settings-card.current {
+    grid-row-start: 1;
   }
 
   .divider {

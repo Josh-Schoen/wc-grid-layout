@@ -75,44 +75,47 @@ export class GridLayoutDebug extends GridLayoutAdvanced {
 
   handleSettingsAction(e: CustomEvent) {
     const {item, event} = e.detail;
-    this.mediaMatch.breakpointMediaMatch =
-      this.mediaMatch.breakpointMediaMatch.map((bp, index) => {
-        if (event.target.dataset.breakpoint === bp.breakpoint) {
-          bp.value = parseInt(event.target.value);
-          switch (item) {
-            case 'columns': {
-              if (
-                event.target.dataset.breakpoint ===
-                this.breakPointMediaMatch.breakpoint
-              ) {
-                bp.value = parseInt(event.target.value);
-                this.breakPointMediaMatch.value = parseInt(event.target.value);
-                this.mediaMatch.updatebreakpointValue(
-                  this.breakPointMediaMatch
-                );
-                this.requestUpdate();
-              }
 
-              break;
-            }
-            case 'min': {
-              this.breakPoints[bp.breakpoint] = bp.value;
-              const nextBreakPoint = Object.keys(this.breakPoints)[index + 1] as BreakPointKeys;
-              console.log(Object.keys(this.breakPoints)[index + 1]);
-              if (nextBreakPoint) {
-                bp.media = window.matchMedia(
-                  `(min-width: ${event.target.value}px) and (max-width: ${
-                    this.breakPoints[nextBreakPoint] - 1
-                  }px)`
-                );
-                this.mediaMatch.updatebreakpointValue(bp);
-              }
-              break;
-            }
+    this.mediaMatch.breakpointMediaMatch.map((bp, index) => {
+      if (event.target.dataset.breakpoint === bp.breakpoint) {
+        if (item === 'columns') {
+          if (
+            event.target.dataset.breakpoint ===
+            this.breakPointMediaMatch.breakpoint
+          ) {
+            bp.value = parseInt(event.target.value);
+            this.breakPointMediaMatch.value = parseInt(event.target.value);
+            this.mediaMatch.updatebreakpointValue(this.breakPointMediaMatch);
+            this.requestUpdate();
           }
+        } else if (item === 'min') {
+          // this.breakPoints[bp.breakpoint] = bp.value;
+          const nextBreakPoint = Object.keys(this.breakPoints)[
+            index + 1
+          ] as BreakPointKeys;
+          if (nextBreakPoint) {
+            bp.media = window.matchMedia(
+              `(min-width: ${event.target.value}px) and (max-width: ${
+                this.breakPoints[nextBreakPoint] - 1
+              }px)`
+            );
+          } else {
+            bp.media = window.matchMedia(
+              `(min-width: ${event.target.value}px)`
+            );
+          }
+          if (
+            event.target.dataset.breakpoint ===
+            this.breakPointMediaMatch.breakpoint
+          ) {
+            this.breakPointMediaMatch.media = bp.media;
+            this.mediaMatch.updatebreakpointValue(bp);
+          }
+          this.requestUpdate();
         }
-        return bp;
-      });
+      }
+      return bp;
+    });
     console.log(this.mediaMatch.breakpointMediaMatch);
   }
 

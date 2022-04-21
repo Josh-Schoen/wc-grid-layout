@@ -96,7 +96,13 @@ export class GridLayoutToolbar extends LitElement {
     document.dispatchEvent(settingsEvent);
   }
 
+  // getCurrentBreakPointClass() {
+  //   return classMap({success: breakpoint.breakpoint === this.breakPointLabel})
+  // }
+
   override render() {
+
+
     return html`
       <grid-layout-toolbar-item .useMenu=${false}>
         <div slot="0" class="settings-container">
@@ -180,19 +186,22 @@ export class GridLayoutToolbar extends LitElement {
         </div>
       </grid-layout-toolbar-item>
       <mwc-dialog id="dialog1" heading="Breakpoint settings"
-        >${this.breakpoints?.map((breakpoint) => {
+        >
+        <div class="grid-container">
+        ${this.breakpoints?.map((breakpoint) => {
           return html`
-          <div class="header-container ${classMap({success: breakpoint.breakpoint === this.breakPointLabel})}">
-            <h4 class="row-heading">Breakpoint: ${breakpoint.breakpoint}</h4>
-            ${breakpoint.breakpoint === this.breakPointLabel
+          <div class="settings-card ${classMap({current: breakpoint.breakpoint === this.breakPointLabel})}">
+          <div class="header-container">
+          ${breakpoint.breakpoint === this.breakPointLabel
               ? html` <mwc-icon>check_circle</mwc-icon>`
               : null}
+            <h4 class="row-heading">Breakpoint: ${breakpoint.breakpoint}</h4>
             </div>
             <div class="divider">
               <h5>Columns</h5>
               <mwc-textfield
                 class="settings-field"
-                id=${breakpoint.breakpoint}
+                id="columns-${breakpoint.breakpoint}"
                 data-breakpoint=${breakpoint.breakpoint}
                 value=${breakpoint.value}
                 helperPersistent
@@ -206,7 +215,7 @@ export class GridLayoutToolbar extends LitElement {
               <mwc-textfield
                 class="settings-field"
                 data-breakpoint=${breakpoint.breakpoint}
-                id=${breakpoint.breakpoint}
+                id="min-${breakpoint.breakpoint}"
                 value=${breakPoints[breakpoint.breakpoint]}
                 helperPersistent
                 helper="Mininium width"
@@ -216,8 +225,10 @@ export class GridLayoutToolbar extends LitElement {
                 outlined
               ></mwc-textfield>
             </div>
+            </div>
           `;
         })}
+        </div>
         <mwc-button @click=${this.toggleDialog} slot="primaryAction" raised
           >Close</mwc-button
         >
