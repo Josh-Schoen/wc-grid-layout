@@ -7,9 +7,9 @@ export type BreakPointValues = { [key in BreakPointKeys]: number };
 export interface BreakPointMediaMatch {
   breakpoint: BreakPointKeys;
   breakpointMin: number;
-  breakpointMax: number | null;
+  breakpointMax: number | undefined;
   value: number;
-  media?: MediaQueryList | string;
+  media?: MediaQueryList;
 }
 
 export type BreakPointMediaQueries = {

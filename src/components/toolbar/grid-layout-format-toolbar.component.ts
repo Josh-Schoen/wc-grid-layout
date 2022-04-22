@@ -12,6 +12,7 @@ import {Slider} from '@material/mwc-slider';
 import './grid-layout-toolbar-item.component';
 import {html, LitElement} from 'lit';
 import {customElement, property, query, state} from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import {gridLayoutToolbar} from './grid-layout-toolbar.css.js';
 
 import {
@@ -45,7 +46,7 @@ export class GridLayoutToolbar extends LitElement {
   colors: string[] = colors;
 
   @property({type: Array})
-  breakpoints: BreakPointMediaMatch[] = [];
+  breakpoints?: BreakPointMediaMatch[] = [];
 
   @query('#dialog1')
   settingsDialog?: Dialog;
@@ -182,7 +183,7 @@ export class GridLayoutToolbar extends LitElement {
       <mwc-dialog id="dialog1" heading="Breakpoint settings"
         >
         <div class="grid-container">
-        ${this.breakpoints?.map((breakpoint) => {
+        ${this.breakpoints?.map((breakpoint, index) => {
           return html`
           <div class="settings-card ${classMap({current: breakpoint.breakpoint === this.breakPointLabel})}">
           <div class="header-container">
