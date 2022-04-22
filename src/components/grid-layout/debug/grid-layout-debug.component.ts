@@ -7,7 +7,6 @@ import {GridCell} from '../grid-cell/gird-cell.component';
 import {GridLayoutAdvanced} from '../grid-layout-advanced.component';
 import {styles} from './grid-debug.css.js';
 import {TextField} from '@material/mwc-textfield';
-import {BreakPointKeys, breakPoints, BreakPointValues} from '../foundation';
 
 export interface Position {
   start: number | string;
@@ -77,29 +76,54 @@ export class GridLayoutDebug extends GridLayoutAdvanced {
     const {item, event} = e.detail;
 
     this.mediaMatch.breakpointMediaMatch.map((bp, index) => {
+      const intValue = parseInt(event.target.value);
       if (event.target.dataset.breakpoint === bp.breakpoint) {
         if (item === 'columns') {
           if (
             event.target.dataset.breakpoint ===
             this.breakPointMediaMatch.breakpoint
           ) {
-            bp.value = parseInt(event.target.value);
-            this.breakPointMediaMatch.value = parseInt(event.target.value);
+            bp.value = intValue;
+            this.breakPointMediaMatch.value = intValue;
             this.mediaMatch.updatebreakpointValue(this.breakPointMediaMatch);
             this.requestUpdate();
           }
         } else if (item === 'min') {
-          // this.breakPoints[bp.breakpoint] = bp.value;
-          const nextBreakPoint = Object.keys(this.breakPoints)[
+          console.log(this.mediaMatch)
+          const nextBreakPoint = this.mediaMatch.breakpointMediaMatch[
             index + 1
-          ] as BreakPointKeys;
+          ];
+          const prevBreakPoint = this.mediaMatch.breakpointMediaMatch[
+            index - 1
+          ];
+          
+          console.log(prevBreakPoint)
+
+          if (prevBreakPoint) {
+            this.mediaMatch.breakpointMediaMatch[
+            index - 1
+          ] = {
+            ...prevBreakPoint,
+            breakpointMax: intValue - 1,
+            media: this.mediaMatch.getMediaMinMax(prevBreakPoint.breakpointMin, intValue - 1)
+          }
+
+          this.breakPointMediaMatch = {
+            ...prevBreakPoint,
+            breakpointMax: intValue - 1,
+            media: this.mediaMatch.getMediaMinMax(prevBreakPoint.breakpointMin, intValue - 1)
+          }
+          this.requestUpdate();
+          }
+
           if (nextBreakPoint) {
             bp.media = window.matchMedia(
               `(min-width: ${event.target.value}px) and (max-width: ${
-                this.breakPoints[nextBreakPoint] - 1
+                nextBreakPoint.breakpointMin - 1
               }px)`
             );
           } else {
+            bp.breakpointMin = intValue;
             bp.media = window.matchMedia(
               `(min-width: ${event.target.value}px)`
             );
@@ -185,7 +209,7 @@ export class GridLayoutDebug extends GridLayoutAdvanced {
 
   override render() {
     return html`
-      ${(this.breakPointMediaMatch?.media as MediaQueryList).media}
+      ${this.breakPointMediaMatch?.media && (this.breakPointMediaMatch?.media as MediaQueryList).media}
       ${this.breakPointMediaMatch?.breakpoint}
       ${this.breakPointMediaMatch?.value}
       <div class="cwc-grid" style=${styleMap(this.customStyles)}>

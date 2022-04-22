@@ -6,39 +6,14 @@ import {
   GridLayoutFoundation,
   gap,
   BreakPointMediaMatch,
+  breakPointMediaQueries
 } from './foundation';
 
 import {MediaMatch} from './media-match';
 
 @customElement('cwc-grid-layout-advanced')
 export class GridLayoutAdvanced extends GridLayoutFoundation {
-  mediaMatch = new MediaMatch([
-    {
-      breakpoint: 'xs',
-      value: 4,
-      media: '(min-width: 0px) and (max-width: 719px)',
-    },
-    {
-      breakpoint: 'sm',
-      value: 4,
-      media: '(min-width: 720px) and (max-width: 1023px)',
-    },
-    {
-      breakpoint: 'md',
-      value: 8,
-      media: '(min-width: 1024px) and (max-width: 1279px)',
-    },
-    {
-      breakpoint: 'lg',
-      value: 12,
-      media: '(min-width: 1280px) and (max-width: 1919px)',
-    },
-    {
-      breakpoint: 'xl',
-      value: 12,
-      media: '(min-width: 1920px)',
-    },
-  ]);
+  mediaMatch = new MediaMatch(breakPointMediaQueries);
 
   @property()
   columnBreakpoints = `{"lg": 1024}`;
@@ -90,7 +65,8 @@ export class GridLayoutAdvanced extends GridLayoutFoundation {
   breakPointMediaMatch: BreakPointMediaMatch = {
     breakpoint: 'lg',
     value: 12,
-    media: '(min-width: 1280px) and (max-width: 1919px)',
+    breakpointMin: 1280,
+    breakpointMax: 1919,
   };
 
   override connectedCallback(): void {

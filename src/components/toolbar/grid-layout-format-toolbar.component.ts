@@ -18,13 +18,13 @@ import {
   BreakPointKeys,
   BreakPointMediaMatch,
   breakPoints,
-  BreakPointValues,
 } from '../grid-layout/foundation';
-import {Menu} from '@material/mwc-menu';
 import {colors} from './foundation';
 import {Dialog} from '@material/mwc-dialog';
 import {TextField} from '@material/mwc-textfield';
 import { classMap } from 'lit/directives/class-map.js';
+
+
 @customElement('grid-layout-format-toolbar')
 export class GridLayoutToolbar extends LitElement {
   @property({type: Boolean})
@@ -46,7 +46,7 @@ export class GridLayoutToolbar extends LitElement {
   colors: string[] = colors;
 
   @property({type: Array})
-  breakpoints?: BreakPointMediaMatch[];
+  breakpoints: BreakPointMediaMatch[] = [];
 
   @query('#dialog1')
   settingsDialog?: Dialog;
@@ -65,7 +65,7 @@ export class GridLayoutToolbar extends LitElement {
     console.log();
   }
 
-  hanleItemSelect(toolbarItem: string, event: Event) {
+  handleItemSelect(toolbarItem: string, event: Event) {
     if (toolbarItem === 'backgroundColor') {
       this.color = (event.target as TextField).value;
     }
@@ -75,7 +75,7 @@ export class GridLayoutToolbar extends LitElement {
     document.dispatchEvent(toolbarEvent);
   }
 
-  handleMenuOpen(event: Event, menu: Menu) {
+  handleMenuOpen() {
     this.slider = this.querySelector('mwc-slider') as Slider;
     console.log(this.slider);
     setTimeout(() => {
@@ -96,12 +96,7 @@ export class GridLayoutToolbar extends LitElement {
     document.dispatchEvent(settingsEvent);
   }
 
-  // getCurrentBreakPointClass() {
-  //   return classMap({success: breakpoint.breakpoint === this.breakPointLabel})
-  // }
-
   override render() {
-
 
     return html`
       <grid-layout-toolbar-item .useMenu=${false}>
@@ -127,7 +122,7 @@ export class GridLayoutToolbar extends LitElement {
               id="columns"
               value=${this.columns}
               @change=${(event: Event) =>
-                this.hanleItemSelect('columns', event)}
+                this.handleItemSelect('columns', event)}
               type="number"
               outlined
             ></mwc-textfield>
@@ -142,7 +137,7 @@ export class GridLayoutToolbar extends LitElement {
               style="height: 34px; width: 70px;"
               id="gap"
               value=${this.gap}
-              @change=${(event: Event) => this.hanleItemSelect('gap', event)}
+              @change=${(event: Event) => this.handleItemSelect('gap', event)}
               type="number"
               outlined
             ></mwc-textfield>
@@ -157,7 +152,7 @@ export class GridLayoutToolbar extends LitElement {
       >
         <div slot="0">
           <mwc-slider
-            @change=${(event: Event) => this.hanleItemSelect('opacity', event)}
+            @change=${(event: Event) => this.handleItemSelect('opacity', event)}
             discrete
             withTickMarks
             step="10"
@@ -174,7 +169,7 @@ export class GridLayoutToolbar extends LitElement {
                 <div class="color-container">
                   <input
                     @click=${(event: Event) =>
-                      this.hanleItemSelect('backgroundColor', event)}
+                      this.handleItemSelect('backgroundColor', event)}
                     type="button"
                     value=${color}
                     style="background-color: ${color};"

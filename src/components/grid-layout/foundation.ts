@@ -6,8 +6,10 @@ export type BreakPointValues = { [key in BreakPointKeys]: number };
 
 export interface BreakPointMediaMatch {
   breakpoint: BreakPointKeys;
+  breakpointMin: number;
+  breakpointMax: number | null;
   value: number;
-  media: MediaQueryList | string;
+  media?: MediaQueryList | string;
 }
 
 export type BreakPointMediaQueries = {
@@ -33,28 +35,38 @@ export const breakColumns: BreakPointValues = {
 export const breakPointMediaQueries: BreakPointMediaMatch[] = [
   {
     breakpoint: "xs",
+    breakpointMin: breakPoints.xs,
+    breakpointMax: breakPoints.sm - 1,
     value: breakColumns.xs,
-    media: window.matchMedia(`(min-width: max-width(${breakPoints.xs}px) and (max-width: ${breakPoints.sm - 1}px)`),
+    // media: window.matchMedia(`(min-width: max-width(${breakPoints.xs}px) and (max-width: ${breakPoints.sm - 1}px)`),
   },
   {
     breakpoint: "sm",
     value: breakColumns.sm,
-    media: window.matchMedia(`(min-width: ${breakPoints.sm}px) and (max-width: ${breakPoints.md - 1}px)`),
+    breakpointMin: breakPoints.sm,
+    breakpointMax: breakPoints.md - 1,
+    // media: window.matchMedia(`(min-width: ${breakPoints.sm}px) and (max-width: ${breakPoints.md - 1}px)`),
   },
   {
     breakpoint: "md",
+    breakpointMin: breakPoints.md,
+    breakpointMax: breakPoints.lg - 1,
     value: breakColumns.md,
-    media: window.matchMedia(`(min-width: ${breakPoints.md}px) and (max-width: ${breakPoints.lg - 1}px)`),
+    // media: window.matchMedia(`(min-width: ${breakPoints.md}px) and (max-width: ${breakPoints.lg - 1}px)`),
   },
   {
     breakpoint: "lg",
+    breakpointMin: breakPoints.lg,
+    breakpointMax: breakPoints.xl - 1,
     value: breakColumns.lg,
-    media: window.matchMedia(`(min-width: ${breakPoints.lg}px) and (max-width: ${breakPoints.xl - 1}px)`)
+    // media: window.matchMedia(`(min-width: ${breakPoints.lg}px) and (max-width: ${breakPoints.xl - 1}px)`)
   },
   {
     breakpoint: "xl",
+    breakpointMin: breakPoints.xl,
+    breakpointMax: null,
     value: breakColumns.xl,
-    media: window.matchMedia(`min-width(${breakPoints.xl}px)`),
+    // media: window.matchMedia(`min-width(${breakPoints.xl}px)`),
   },
 ];
 
