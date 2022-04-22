@@ -89,7 +89,6 @@ export class GridLayoutDebug extends GridLayoutAdvanced {
             this.requestUpdate();
           }
         } else if (item === 'min') {
-          console.log(this.mediaMatch)
           const nextBreakPoint = this.mediaMatch.breakpointMediaMatch[
             index + 1
           ];

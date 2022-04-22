@@ -17,7 +17,6 @@ import {gridLayoutToolbar} from './grid-layout-toolbar.css.js';
 import {
   BreakPointKeys,
   BreakPointMediaMatch,
-  breakPoints,
 } from '../grid-layout/foundation';
 import {colors} from './foundation';
 import {Dialog} from '@material/mwc-dialog';
@@ -211,7 +210,7 @@ export class GridLayoutToolbar extends LitElement {
                 class="settings-field"
                 data-breakpoint=${breakpoint.breakpoint}
                 id="min-${breakpoint.breakpoint}"
-                value=${breakPoints[breakpoint.breakpoint]}
+                value=${breakpoint.breakpointMin}
                 helperPersistent
                 helper="Mininium width"
                 @change=${(event: Event) =>
