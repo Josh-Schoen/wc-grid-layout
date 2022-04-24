@@ -137,7 +137,7 @@ export const gridLayoutToolbar = css`
   }
 
   h4.row-heading {
-      margin-bottom: 8px;
+    margin-bottom: 8px;
   }
 
   .settings-field {
@@ -145,14 +145,20 @@ export const gridLayoutToolbar = css`
   }
 
   .header-container {
-      display: flex;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header {
+    display: flex;
   }
 
   .grid-container {
-      display: grid;
+    display: grid;
   }
 
-  .current .header-container {
+  .current .header {
     color: var(--glo-success);
   }
 
@@ -167,5 +173,16 @@ export const gridLayoutToolbar = css`
     margin-bottom: 12px;
     display: flex;
     flex-direction: column;
+  }
+  .media-query {
+    margin-left: 8px;
+  }
+  .query-header, .query-subheader {
+    font-family: var(--wcg-typography-font-family, Roboto, sans-serif);
+  }
+  .query-subheader {
+    color: var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.65));
+    letter-spacing: var(--mdc-typography-body2-letter-spacing, 0.0178571em);
+    font-size: var(--mdc-typography-body2-font-size, 0.875rem);
   }
 `;

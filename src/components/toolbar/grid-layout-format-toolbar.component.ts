@@ -1,8 +1,8 @@
-import '@material/mwc-list/mwc-list-item';
 import '@material/mwc-icon-button';
 import '@material/mwc-button';
 import '@material/mwc-menu';
 import '@material/mwc-list';
+import '@material/mwc-list/mwc-list-item';
 import '@material/mwc-list/mwc-check-list-item';
 import '@material/mwc-formfield';
 import '@material/mwc-textfield';
@@ -12,18 +12,13 @@ import {Slider} from '@material/mwc-slider';
 import './grid-layout-toolbar-item.component';
 import {html, LitElement} from 'lit';
 import {customElement, property, query, state} from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
+import {ifDefined} from 'lit/directives/if-defined.js';
 import {gridLayoutToolbar} from './grid-layout-toolbar.css.js';
-
-import {
-  BreakPointKeys,
-  BreakPointMediaMatch,
-} from '../grid-layout/foundation';
+import {BreakPointKeys, BreakPointMediaMatch} from '../grid-layout/foundation';
 import {colors} from './foundation';
 import {Dialog} from '@material/mwc-dialog';
 import {TextField} from '@material/mwc-textfield';
-import { classMap } from 'lit/directives/class-map.js';
-
+import {classMap} from 'lit/directives/class-map.js';
 
 @customElement('grid-layout-format-toolbar')
 export class GridLayoutToolbar extends LitElement {
@@ -47,6 +42,9 @@ export class GridLayoutToolbar extends LitElement {
 
   @property({type: Array})
   breakpoints?: BreakPointMediaMatch[] = [];
+
+  @property({type: Object})
+  breakPointMediaMatch?: BreakPointMediaMatch;
 
   @query('#dialog1')
   settingsDialog?: Dialog;
@@ -77,7 +75,6 @@ export class GridLayoutToolbar extends LitElement {
 
   handleMenuOpen() {
     this.slider = this.querySelector('mwc-slider') as Slider;
-    console.log(this.slider);
     setTimeout(() => {
       this.slider?.layout();
     }, 100);
@@ -97,16 +94,28 @@ export class GridLayoutToolbar extends LitElement {
   }
 
   override render() {
-
     return html`
-      <grid-layout-toolbar-item .useMenu=${false}>
+      <div></div>
+      <grid-layout-toolbar-item class="settings" .useMenu=${false}>
         <div slot="0" class="settings-container">
           <mwc-icon-button
             @click=${this.toggleDialog}
             data-num="1"
-            title="Grid breakpoint configuration"
+            title="Grid breakpoint configuration ${this
+              .breakPointMediaMatch?.media &&
+            (this.breakPointMediaMatch?.media as MediaQueryList).media}"
             icon="settings"
           ></mwc-icon-button>
+          <div class="media-query">
+            <div>
+              <h5 class="query-header">Media query: ${this.breakPointLabel}</h5>
+              <div class="query-subheader">
+                ${this.breakPointMediaMatch?.media &&
+                (this.breakPointMediaMatch?.media as MediaQueryList).media}
+              </div>
+            </div>
+          </div>
+          <h5></h5>
         </div>
       </grid-layout-toolbar-item>
       <grid-layout-toolbar-item .useMenu=${false}>
@@ -116,7 +125,7 @@ export class GridLayoutToolbar extends LitElement {
           >
             view_column
           </mwc-icon>
-          <mwc-formfield label="columns: ${this.breakPointLabel}">
+          <mwc-formfield label="columns">
             <mwc-textfield
               style="height: 34px; width: 70px;"
               id="columns"
@@ -180,49 +189,56 @@ export class GridLayoutToolbar extends LitElement {
           </div>
         </div>
       </grid-layout-toolbar-item>
-      <mwc-dialog id="dialog1" heading="Breakpoint settings"
-        >
+      <mwc-dialog id="dialog1" heading="Breakpoint settings">
         <div class="grid-container">
-        ${this.breakpoints?.map((breakpoint, index) => {
-          return html`
-          <div class="settings-card ${classMap({current: breakpoint.breakpoint === this.breakPointLabel})}">
-          <div class="header-container">
-          ${breakpoint.breakpoint === this.breakPointLabel
-              ? html` <mwc-icon>check_circle</mwc-icon>`
-              : null}
-            <h4 class="row-heading">Breakpoint: ${breakpoint.breakpoint}</h4>
-            </div>
-            <div class="divider">
-              <h5>Columns</h5>
-              <mwc-textfield
-                class="settings-field"
-                id="columns-${breakpoint.breakpoint}"
-                data-breakpoint=${breakpoint.breakpoint}
-                value=${breakpoint.value}
-                helperPersistent
-                helper="Number of columns"
-                @change=${(event: Event) =>
-                  this.handleSettingsUpdate('columns', event)}
-                type="number"
-                outlined
-              ></mwc-textfield>
-              <h5>Breakpoint</h5>
-              <mwc-textfield
-                class="settings-field"
-                data-breakpoint=${breakpoint.breakpoint}
-                id="min-${breakpoint.breakpoint}"
-                value=${breakpoint.breakpointMin}
-                helperPersistent
-                helper="Mininium width"
-                @change=${(event: Event) =>
-                  this.handleSettingsUpdate('min', event)}
-                type="number"
-                outlined
-              ></mwc-textfield>
-            </div>
-            </div>
-          `;
-        })}
+          ${this.breakpoints?.map((breakpoint) => {
+            return html`
+              <div
+                class="settings-card ${classMap({
+                  current: breakpoint.breakpoint === this.breakPointLabel,
+                })}"
+              >
+                <div class="divider">
+                  <div class="header-container">
+                    <div class="header">
+                      ${breakpoint.breakpoint === this.breakPointLabel
+                        ? html` <mwc-icon>check_circle</mwc-icon>`
+                        : null}
+                      <h4 class="row-heading">
+                        Breakpoint: ${breakpoint.breakpoint}
+                      </h4>
+                    </div>
+                  </div>
+                  <h5>Columns</h5>
+                  <mwc-textfield
+                    class="settings-field"
+                    id="columns-${breakpoint.breakpoint}"
+                    data-breakpoint=${breakpoint.breakpoint}
+                    value=${breakpoint.value}
+                    helperPersistent
+                    helper="Number of columns"
+                    @change=${(event: Event) =>
+                      this.handleSettingsUpdate('columns', event)}
+                    type="number"
+                    outlined
+                  ></mwc-textfield>
+                  <h5>Breakpoint</h5>
+                  <mwc-textfield
+                    class="settings-field"
+                    data-breakpoint=${breakpoint.breakpoint}
+                    id="min-${breakpoint.breakpoint}"
+                    value=${breakpoint.breakpointMin}
+                    helperPersistent
+                    helper="Mininium width"
+                    @change=${(event: Event) =>
+                      this.handleSettingsUpdate('min', event)}
+                    type="number"
+                    outlined
+                  ></mwc-textfield>
+                </div>
+              </div>
+            `;
+          })}
         </div>
         <mwc-button @click=${this.toggleDialog} slot="primaryAction" raised
           >Close</mwc-button

@@ -117,7 +117,6 @@ export class GridLayout extends GridLayoutFoundation {
             rowGap: this.rowGap ? this.rowGap : null,
             columnGap: this.columnGap ? this.columnGap : null,
             'grid-auto-rows': this.gridAutoRows,
-            background: '#efefef',
             // 'grid-template-areas': this.gridTemplateAreas
           };
         // const width = window.innerWidth;

@@ -181,6 +181,7 @@ export class GridLayoutDebug extends GridLayoutAdvanced {
   renderToolbar() {
     return html`
       <grid-layout-format-toolbar
+        .breakPointMediaMatch=${this.breakPointMediaMatch}
         .breakpoints=${this.mediaMatch.breakpointMediaMatch}
         .breakPointLabel=${this.breakPointMediaMatch?.breakpoint}
         .columns=${this.breakPointMediaMatch?.value}
@@ -193,10 +194,6 @@ export class GridLayoutDebug extends GridLayoutAdvanced {
 
   override render() {
     return html`
-      ${this.breakPointMediaMatch?.media &&
-      (this.breakPointMediaMatch?.media as MediaQueryList).media}
-      ${this.breakPointMediaMatch?.breakpoint}
-      ${this.breakPointMediaMatch?.value}
       <div class="cwc-grid" style=${styleMap(this.customStyles)}>
         ${this.renderColumnArray()}
       </div>

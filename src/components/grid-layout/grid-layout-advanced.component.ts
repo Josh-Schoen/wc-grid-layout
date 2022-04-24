@@ -99,7 +99,6 @@ export class GridLayoutAdvanced extends GridLayoutFoundation {
       rowGap: this.rowGap ? this.rowGap : null,
       columnGap: this.columnGap ? this.columnGap : null,
       'grid-auto-rows': this.gridAutoRows,
-      background: '#efefef',
     };
   }
 
