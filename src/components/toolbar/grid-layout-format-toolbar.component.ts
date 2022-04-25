@@ -95,29 +95,6 @@ export class GridLayoutToolbar extends LitElement {
 
   override render() {
     return html`
-      <div></div>
-      <grid-layout-toolbar-item class="settings" .useMenu=${false}>
-        <div slot="0" class="settings-container">
-          <mwc-icon-button
-            @click=${this.toggleDialog}
-            data-num="1"
-            title="Grid breakpoint configuration ${this
-              .breakPointMediaMatch?.media &&
-            (this.breakPointMediaMatch?.media as MediaQueryList).media}"
-            icon="settings"
-          ></mwc-icon-button>
-          <div class="media-query">
-            <div>
-              <h5 class="query-header">Media query: ${this.breakPointLabel}</h5>
-              <div class="query-subheader">
-                ${this.breakPointMediaMatch?.media &&
-                (this.breakPointMediaMatch?.media as MediaQueryList).media}
-              </div>
-            </div>
-          </div>
-          <h5></h5>
-        </div>
-      </grid-layout-toolbar-item>
       <grid-layout-toolbar-item .useMenu=${false}>
         <div slot="0" class="settings-container">
           <mwc-icon
@@ -187,6 +164,32 @@ export class GridLayoutToolbar extends LitElement {
               `;
             })}
           </div>
+        </div>
+      </grid-layout-toolbar-item>
+      <grid-layout-toolbar-item class="settings" .useMenu=${false}>
+        <div slot="0" class="settings-container">
+          <mwc-icon-button
+            @click=${this.toggleDialog}
+            data-num="1"
+            title="Grid breakpoint configuration ${this
+              .breakPointMediaMatch?.media &&
+            (this.breakPointMediaMatch?.media as MediaQueryList).media}"
+            icon="settings"
+          ></mwc-icon-button>
+          <div class="media-query">
+            <div>
+              <h5 class="query-header">Breakpoint: ${this.breakPointLabel}</h5>
+              <div class="query-subheader">
+                <div>
+                Min: ${this.breakPointMediaMatch?.breakpointMin}px
+            </div>
+            <div>
+                Max: ${this.breakPointMediaMatch?.breakpointMax ? `${this.breakPointMediaMatch?.breakpointMax}px` : 'N/A'}
+                </div>
+              </div>
+            </div>
+          </div>
+          <h5></h5>
         </div>
       </grid-layout-toolbar-item>
       <mwc-dialog id="dialog1" heading="Breakpoint settings">

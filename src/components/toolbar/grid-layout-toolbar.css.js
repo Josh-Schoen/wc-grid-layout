@@ -3,7 +3,7 @@ import {css} from 'lit';
 export const gridLayoutToolbar = css`
   :host {
     margin: 0;
-    padding: 4px;
+    padding: 8px;
     display: flex;
     background-color: #fff;
     justify-content: center;
@@ -177,12 +177,30 @@ export const gridLayoutToolbar = css`
   .media-query {
     margin-left: 8px;
   }
-  .query-header, .query-subheader {
+  .query-header,
+  .query-subheader {
     font-family: var(--wcg-typography-font-family, Roboto, sans-serif);
   }
+
+  .settings {
+    border-left: 1px #b6b5b59d solid;
+  }
+
   .query-subheader {
     color: var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.65));
     letter-spacing: var(--mdc-typography-body2-letter-spacing, 0.0178571em);
-    font-size: var(--mdc-typography-body2-font-size, 0.875rem);
+    font-size: var(--mdc-typography-body2-font-size, 0.775rem);
+  }
+  
+  @media only screen and (max-width: 630px) {
+    :host {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      height: auto;
+    }
+    .settings {
+      border: none;
+    }
   }
 `;
