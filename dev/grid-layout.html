@@ -7,9 +7,9 @@
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../node_modules/lit/polyfill-support.js"></script>
     <script type="module" src="../dist/components/grid-layout/grid-layout-advanced.component.js"></script>
-    <script type="module" src="../dist/components/grid-layout/grid-cell/gird-cell-advanced.component.js"></script>
+    <script type="module" src="../dist/components/grid-layout/grid-cell/gird-cell.component.js"></script>
     <style>
-      cwc-grid-cell-advanced {
+      cwc-grid-cell {
         background: pink;
         border: 1px red dashed;
       }
@@ -19,42 +19,27 @@
     <cwc-grid-layout-advanced
     width="100%"
   >
-  <cwc-grid-cell-advanced 
-  xs='{"start": 1, "end": 5}'
-  sm='{"start": 1, "end": 5, "row": {"start": 2, "end": 5}}'
-  md='{"start": 1, "end": 5}'
-  lg='{"start": 1, "end": 7}'
-  xl='{"start": 1, "end": 13}'>
+  <cwc-grid-cell 
+  xs="1 / 5"
+  sm="1 / 5"
+  md="1 / 9"
+  lg="1 / 6"
+  xl="1 / 13">
   col 1
-  </cwc-grid-cell-advanced>
-  <cwc-grid-cell-advanced
-  xs='{"start": 1, "end": 5}'
-  sm='{"start": 1, "end": 5, "row": {"start": 1, "end": 1}}'
-  md='{"start": 5, "end": 9}'
-  lg='{"start": 1, "end": 7, "row": {"start": 2, "end": 5}}'
-  xl='{"start": 1, "end": 13}'>
+  </cwc-grid-cell>
+  <cwc-grid-cell 
+  xs="1 / 5"
+  md="1 / 9"
+  lg="6 / 13"
+  >
   col 2
-  </cwc-grid-cell-advanced>
-  <cwc-grid-cell-advanced
-  xs='{"start": 1, "end": 5}'
-  sm='{"start": 1, "end": 5, "row": {"start": 5, "end": 6}}'
-  md='{"start": 1, "end": 9}'
-  lg='{"start": 7, "end": 13, "row": {"start": 1, "end": 5}}'
-  xl='{"start": 1, "end": 13}'>
+  </cwc-grid-cell>
+  <cwc-grid-cell
+  xs="1 / 5"
+  md="1 / 9"
+  lg="1 / 6">
   col 3
-  </cwc-grid-cell-advanced>
-  <cwc-grid-cell-advanced>col 1</cwc-grid-cell-advanced>
-  <cwc-grid-cell-advanced>col 2</cwc-grid-cell-advanced>
-  <cwc-grid-cell-advanced>col 3</cwc-grid-cell-advanced>
-  <cwc-grid-cell-advanced>col 4</cwc-grid-cell-advanced>
-  <cwc-grid-cell-advanced>col 5</cwc-grid-cell-advanced>
-  <cwc-grid-cell-advanced>col 6</cwc-grid-cell-advanced>
-  <cwc-grid-cell-advanced>col 7</cwc-grid-cell-advanced>
-  <cwc-grid-cell-advanced>col 8</cwc-grid-cell-advanced>
-  <cwc-grid-cell-advanced>col 9</cwc-grid-cell-advanced>
-  <cwc-grid-cell-advanced>col 10</cwc-grid-cell-advanced>
-  <cwc-grid-cell-advanced>col 11</cwc-grid-cell-advanced>
-  <cwc-grid-cell-advanced>col 12</cwc-grid-cell-advanced>
+  </cwc-grid-cell>
   </cwc-grid-layout-advanced>
   </body>
 </html>

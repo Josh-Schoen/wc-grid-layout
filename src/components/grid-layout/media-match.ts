@@ -46,7 +46,8 @@ export class MediaMatch {
   };
 
   mediaqueryResponse = (mql: BreakPointMediaMatch) => {
-    if (mql.media && typeof mql.media !== "string" && mql.media.matches) {
+    requestAnimationFrame(() => {
+    if (mql && mql.media && typeof mql.media !== "string" && mql.media.matches) {
       this.breakpoint = this.breakpointMediaMatch.find((q) => q.breakpoint === mql.breakpoint);
       const matchEvent: CustomEvent = new CustomEvent<BreakPointMediaMatch>(
         "mediaMatch",
@@ -55,6 +56,7 @@ export class MediaMatch {
 
         window.dispatchEvent(matchEvent);
     }
+  });
   };
 
   removeQueryEvents = () => {
@@ -81,7 +83,7 @@ export class MediaMatch {
     this.getMediaQuery();
   };
 
-  ubsubscribe = (func: Function) => {
+  unsubscribe = (func: Function) => {
     window.removeEventListener("mediaMatch", func as EventListener);
   };
 }

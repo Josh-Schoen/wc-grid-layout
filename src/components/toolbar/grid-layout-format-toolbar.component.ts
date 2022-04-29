@@ -106,6 +106,7 @@ export class GridLayoutToolbar extends LitElement {
             <mwc-textfield
               style="height: 34px; width: 70px;"
               id="columns"
+              min="1"
               value=${this.columns}
               @change=${(event: Event) =>
                 this.handleItemSelect('columns', event)}
@@ -122,6 +123,7 @@ export class GridLayoutToolbar extends LitElement {
             <mwc-textfield
               style="height: 34px; width: 70px;"
               id="gap"
+              min="0"
               value=${this.gap}
               @change=${(event: Event) => this.handleItemSelect('gap', event)}
               type="number"
@@ -218,8 +220,7 @@ export class GridLayoutToolbar extends LitElement {
                     id="columns-${breakpoint.breakpoint}"
                     data-breakpoint=${breakpoint.breakpoint}
                     value=${breakpoint.value}
-                    helperPersistent
-                    helper="Number of columns"
+                    min="1"
                     @change=${(event: Event) =>
                       this.handleSettingsUpdate('columns', event)}
                     type="number"
@@ -231,8 +232,7 @@ export class GridLayoutToolbar extends LitElement {
                     data-breakpoint=${breakpoint.breakpoint}
                     id="min-${breakpoint.breakpoint}"
                     value=${breakpoint.breakpointMin}
-                    helperPersistent
-                    helper="Mininium width"
+                    min="0"
                     @change=${(event: Event) =>
                       this.handleSettingsUpdate('min', event)}
                     type="number"

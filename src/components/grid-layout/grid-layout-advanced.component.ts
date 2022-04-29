@@ -1,4 +1,4 @@
-import {html} from 'lit';
+import {html, PropertyValues} from 'lit';
 import {styleMap} from 'lit/directives/style-map.js';
 import {customElement, property, state} from 'lit/decorators.js';
 import {
@@ -6,7 +6,7 @@ import {
   GridLayoutFoundation,
   gap,
   BreakPointMediaMatch,
-  breakPointMediaQueries
+  breakPointMediaQueries,
 } from './foundation';
 
 import {MediaMatch} from './media-match';
@@ -56,11 +56,13 @@ export class GridLayoutAdvanced extends GridLayoutFoundation {
     window.matchMedia('(max-width: 600px)'),
     window.matchMedia('(max-height: 500px)'),
   ];
-  
+
   @state({
     hasChanged(newVal: BreakPointMediaMatch, oldVal: BreakPointMediaMatch) {
-      return oldVal && newVal.media && oldVal.media !== newVal.media ? true : false;
-    }
+      return oldVal && newVal.media && oldVal.media !== newVal.media
+        ? true
+        : false;
+    },
   })
   breakPointMediaMatch: BreakPointMediaMatch = {
     breakpoint: 'lg',
@@ -78,6 +80,10 @@ export class GridLayoutAdvanced extends GridLayoutFoundation {
       console.error(e);
     }
     this.mediaMatch.subscribe(this.fnc);
+
+    if (this.mediaMatch.breakpoint) {
+      this.mediaMatch.mediaqueryResponse(this.mediaMatch.breakpoint);
+    }
   }
 
   fnc = async (e: CustomEvent<BreakPointMediaMatch>) => {
@@ -86,7 +92,6 @@ export class GridLayoutAdvanced extends GridLayoutFoundation {
   };
 
   get customStyles() {
-
     const gridTemplateColumns = this.breakPointMediaMatch?.breakpoint
       ? this.breakPointMediaMatch?.value
       : this.columns;
@@ -104,11 +109,9 @@ export class GridLayoutAdvanced extends GridLayoutFoundation {
 
   override render() {
     return html`
-      ${(this.breakPointMediaMatch?.media as MediaQueryList).media}
-      ${this.breakPointMediaMatch?.breakpoint}
-      ${this.breakPointMediaMatch?.value}
-
-      <div class="cwc-grid" style=${styleMap(this.customStyles)}><slot></slot></div>
+      <div class="cwc-grid" style=${styleMap(this.customStyles)}>
+        <slot></slot>
+      </div>
     `;
   }
 }

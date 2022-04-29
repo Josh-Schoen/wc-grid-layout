@@ -14,7 +14,7 @@ export class GridCell extends LitElement {
   default = 'auto / auto / auto / auto';
 
   @property({type: String})
-  // Required default propery. Use if no other CellSize is defined
+  // Required default property. Use if no other CellSize is defined
   xs?: string;
 
   @property({type: String})
@@ -74,7 +74,6 @@ export class GridCell extends LitElement {
     this.style.gridArea = `${this.default}`;
     this.style.justifyContent = `${this.justifyContent}`;
     this.style.alignItems = `${this.alignItems}`;
-    // this.updateStyles();
   }
 
   updateStyles = () => {
@@ -104,7 +103,6 @@ export class GridCell extends LitElement {
     );
 
     const cellPositionLength = this.cellSize.split('/').length;
-
     if (cellPositionLength > 2) {
       this.style.gridArea = this.cellSize;
     } else {
@@ -114,11 +112,10 @@ export class GridCell extends LitElement {
 
     this.style.justifyContent = `${this.justifyContent}`;
     this.style.alignItems = `${this.alignItems}`;
-    // this.style.backgroundColor = this.backgroundColor;
   };
 
-  fnc = (e: CustomEvent<BreakPointMediaMatch>) => {
-    this.breakPointEvent = e.detail;
+  fnc = async (e: CustomEvent<BreakPointMediaMatch>) => {
+    this.breakPointEvent = await e.detail;
     this.requestUpdate();
   };
 
@@ -128,7 +125,7 @@ export class GridCell extends LitElement {
         min-width: 0;
         box-sizing: border-box;
         grid-column-start: var(--columnStart);
-        grid-column-start: var(--columnEnd);
+        grid-column-end: var(--columnEnd);
         justify-self: stretch;
         display: inline-flex;
         flex-flow: column wrap;
