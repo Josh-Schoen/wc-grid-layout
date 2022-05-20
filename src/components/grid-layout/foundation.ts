@@ -64,7 +64,7 @@ export const breakPointMediaQueries: BreakPointMediaMatch[] = [
   {
     breakpoint: "xl",
     breakpointMin: breakPoints.xl,
-    breakpointMax: null,
+    breakpointMax: undefined,
     value: breakColumns.xl,
     // media: window.matchMedia(`min-width(${breakPoints.xl}px)`),
   },

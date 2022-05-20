@@ -12,7 +12,6 @@ import {Slider} from '@material/mwc-slider';
 import './grid-layout-toolbar-item.component';
 import {html, LitElement} from 'lit';
 import {customElement, property, query, state} from 'lit/decorators.js';
-import {ifDefined} from 'lit/directives/if-defined.js';
 import {gridLayoutToolbar} from './grid-layout-toolbar.css.js';
 import {BreakPointKeys, BreakPointMediaMatch} from '../grid-layout/foundation';
 import {colors} from './foundation';

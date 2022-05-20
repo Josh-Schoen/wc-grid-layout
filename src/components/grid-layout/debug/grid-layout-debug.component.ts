@@ -1,7 +1,6 @@
 import {html} from 'lit';
 import {customElement, state, query} from 'lit/decorators.js';
 import {styleMap} from 'lit/directives/style-map.js';
-import {ifDefined} from 'lit/directives/if-defined.js';
 import '../grid-cell/gird-cell.component';
 import '../../toolbar/grid-layout-format-toolbar.component';
 import {GridCell} from '../grid-cell/gird-cell.component';

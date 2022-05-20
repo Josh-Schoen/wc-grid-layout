@@ -1,4 +1,4 @@
-import {html, PropertyValues} from 'lit';
+import {html} from 'lit';
 import {styleMap} from 'lit/directives/style-map.js';
 import {customElement, property, state} from 'lit/decorators.js';
 import {
